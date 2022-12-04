@@ -1,5 +1,6 @@
 package com.khanivorous.todokotlin
 
+import app.getxray.xray.junit.customjunitxml.annotations.Requirement
 import app.getxray.xray.junit.customjunitxml.annotations.XrayTest
 import com.khanivorous.todokotlin.model.Todo
 import org.junit.jupiter.api.Assertions
@@ -30,7 +31,8 @@ class TodoKotlinIntegrationTest {
         baseUrl = "http://localhost:$localServerPort"
     }
 
-    @XrayTest(key = "KHAN-41")
+    @XrayTest(key = "KHAN-1", summary = "Get Todo by id", description = "This gets the Todo response and checks the id matches")
+    @Requirement("KHAN-45","KHAN-46")
     @Test
     fun todoById() {
             val response = testRestTemplate!!.getForEntity("$baseUrl/todo/1", Todo::class.java)
