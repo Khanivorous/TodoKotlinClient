@@ -33,7 +33,10 @@ You will notice the tests that spin up the actual application use two different 
 An `xray/report` file is created after each test run. To avoid uploading test results for _all_ tests and only selected tests,
 we can run a particular test task. 
 
-- In this case, the [TodoKotlinIntegrationTest](src/test/kotlin/com/khanivorous/todokotlin/TodoKotlinIntegrationTest.kt) contains a method annotated with `@XrayTest(key = "KHAN-41")`.
+- In this case, the [TodoKotlinIntegrationTest](src/test/kotlin/com/khanivorous/todokotlin/TodoKotlinIntegrationTest.kt) contains a method annotated with ```
+    @XrayTest(key = "KHAN-1", summary = "Get Todo by id", description = "This gets the Todo response and checks the id matches")
+    @Requirement("KHAN-45","KHAN-46")
+```
 When we run the integration test task `tasks.register<Test>("integrationTests")` in [build.gradle.kts](build.gradle.kts), this produces and `xray-report` file with only the results from that
 test task.
 
