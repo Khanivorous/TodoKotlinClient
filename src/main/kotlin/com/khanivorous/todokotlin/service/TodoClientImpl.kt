@@ -7,6 +7,7 @@ import org.springframework.web.client.RestTemplate
 
 @Service
 class TodoClientImpl @Autowired constructor(restTemplate: RestTemplate) : TodoClient {
+
     private val restTemplate: RestTemplate
 
     init {

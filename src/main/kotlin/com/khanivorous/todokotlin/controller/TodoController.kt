@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping(path = ["/todo"])
 class TodoController @Autowired constructor(todoClient: TodoClient) {
+
     private val todoClient: TodoClient
 
     init {
@@ -23,14 +24,16 @@ class TodoController @Autowired constructor(todoClient: TodoClient) {
     }
 
     @Operation(summary = "Get todo by id")
-    @ApiResponses(value = [
-        ApiResponse(
-            responseCode = "200",
-            description = "found todo",
-            content = [ Content(mediaType = "application/json", schema = Schema(implementation = Todo::class))]
-        ),
-        ApiResponse(responseCode = "404", description = "Todo not found")
-    ])
+    @ApiResponses(
+        value = [
+            ApiResponse(
+                responseCode = "200",
+                description = "found todo",
+                content = [Content(mediaType = "application/json", schema = Schema(implementation = Todo::class))]
+            ),
+            ApiResponse(responseCode = "404", description = "Todo not found")
+        ]
+    )
     @GetMapping(value = ["/{id}"], produces = [MediaType.APPLICATION_JSON_VALUE])
     @ResponseStatus(
         HttpStatus.OK
