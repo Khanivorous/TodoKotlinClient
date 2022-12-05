@@ -13,9 +13,11 @@ import org.springframework.web.client.RestTemplate
 
 @ExtendWith(MockitoExtension::class)
 class TodoKotlinClientImplUnitTest {
+
     @Mock
     var restTemplate: RestTemplate? = null
     var serviceUnderTest: TodoClientImpl? = null
+
     @BeforeEach
     fun setUp() {
         serviceUnderTest = TodoClientImpl(restTemplate!!)
@@ -23,16 +25,16 @@ class TodoKotlinClientImplUnitTest {
 
     @Test
     fun todoById() {
-            val mockResponse = Todo(
-                1,
-                1,
-                "Test title",
-                "Test body"
-            )
-            `when`(restTemplate!!.getForObject("/posts/1", Todo::class.java))
-                .thenReturn(mockResponse)
-            val response = serviceUnderTest!!.getTodoById(1)
-            Assertions.assertEquals(1, response!!.id)
-            Assertions.assertEquals("Test body", response.body)
-        }
+        val mockResponse = Todo(
+            1,
+            1,
+            "Test title",
+            "Test body"
+        )
+        `when`(restTemplate!!.getForObject("/posts/1", Todo::class.java))
+            .thenReturn(mockResponse)
+        val response = serviceUnderTest!!.getTodoById(1)
+        Assertions.assertEquals(1, response!!.id)
+        Assertions.assertEquals("Test body", response.body)
+    }
 }

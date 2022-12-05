@@ -20,9 +20,11 @@ import org.junit.jupiter.api.Assertions.assertEquals
 
 @Tag("Application")
 class TodoKotlinClientImplMockServerTest {
+
     private val restTemplate = RestTemplate()
     private var mockRestServiceServer: MockRestServiceServer? = null
     var serviceUnderTest: TodoClientImpl? = null
+
     @BeforeEach
     fun setUp() {
         serviceUnderTest = TodoClientImpl(restTemplate)
@@ -37,14 +39,14 @@ class TodoKotlinClientImplMockServerTest {
     @Throws(IOException::class)
     @Test
     fun todoById() {
-            val resource: Resource = ClassPathResource("todo/todoResponse.json")
-            val inputStream = resource.inputStream
-            val dataAsBytes = FileCopyUtils.copyToByteArray(inputStream)
-            val dummyResponse = String(dataAsBytes, StandardCharsets.UTF_8)
-            mockRestServiceServer!!.expect(MockRestRequestMatchers.requestTo("/posts/1"))
-                .andRespond(MockRestResponseCreators.withSuccess(dummyResponse, MediaType.APPLICATION_JSON))
-            val response = serviceUnderTest!!.getTodoById(1)
-            assertEquals(1, response!!.id)
-            assertEquals("test body id 1", response.body)
-        }
+        val resource: Resource = ClassPathResource("todo/todoResponse.json")
+        val inputStream = resource.inputStream
+        val dataAsBytes = FileCopyUtils.copyToByteArray(inputStream)
+        val dummyResponse = String(dataAsBytes, StandardCharsets.UTF_8)
+        mockRestServiceServer!!.expect(MockRestRequestMatchers.requestTo("/posts/1"))
+            .andRespond(MockRestResponseCreators.withSuccess(dummyResponse, MediaType.APPLICATION_JSON))
+        val response = serviceUnderTest!!.getTodoById(1)
+        assertEquals(1, response!!.id)
+        assertEquals("test body id 1", response.body)
+    }
 }

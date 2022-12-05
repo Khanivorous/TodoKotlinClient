@@ -20,23 +20,29 @@ import org.springframework.test.context.TestPropertySource
 @Tag("Integration")
 @TestPropertySource("classpath:application-integration-test.properties")
 class TodoKotlinIntegrationTest {
+
     @Autowired
     private val testRestTemplate: TestRestTemplate? = null
 
     @LocalServerPort
     var localServerPort = 0
     private var baseUrl: String? = null
+
     @BeforeEach
     fun setUp() {
         baseUrl = "http://localhost:$localServerPort"
     }
 
-    @XrayTest(key = "KHAN-1", summary = "Get Todo by id", description = "This gets the Todo response and checks the id matches")
-    @Requirement("KHAN-45","KHAN-46")
+    @XrayTest(
+        key = "KHAN-1",
+        summary = "Get Todo by id",
+        description = "This gets the Todo response and checks the id matches"
+    )
+    @Requirement("KHAN-45", "KHAN-46")
     @Test
     fun todoById() {
-            val response = testRestTemplate!!.getForEntity("$baseUrl/todo/1", Todo::class.java)
-            Assertions.assertEquals(HttpStatus.OK, response.statusCode)
-            Assertions.assertEquals(1, response.body!!.id)
-        }
+        val response = testRestTemplate!!.getForEntity("$baseUrl/todo/1", Todo::class.java)
+        Assertions.assertEquals(HttpStatus.OK, response.statusCode)
+        Assertions.assertEquals(1, response.body!!.id)
+    }
 }
