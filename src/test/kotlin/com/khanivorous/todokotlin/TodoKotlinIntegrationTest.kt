@@ -41,7 +41,9 @@ class TodoKotlinIntegrationTest {
     @Requirement("KHAN-45", "KHAN-46")
     @Test
     fun todoById() {
+
         val response = testRestTemplate!!.getForEntity("$baseUrl/todo/1", Todo::class.java)
+
         Assertions.assertEquals(HttpStatus.OK, response.statusCode)
         Assertions.assertEquals(1, response.body!!.id)
     }
