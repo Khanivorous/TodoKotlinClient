@@ -59,15 +59,16 @@ internal class TodoKotlinApplicationTests {
     @Throws(IOException::class)
     @Test
     fun todoById() {
-            val resource: Resource = ClassPathResource("todo/todoResponse.json")
-            val inputStream = resource.inputStream
-            val dataAsBytes = FileCopyUtils.copyToByteArray(inputStream)
-            val dummyResponse = String(dataAsBytes, StandardCharsets.UTF_8)
-            mockRestServiceServer!!.expect(MockRestRequestMatchers.requestTo("https://fakeuri/posts/1"))
-                .andRespond(MockRestResponseCreators.withSuccess(dummyResponse, MediaType.APPLICATION_JSON))
-            val response = testRestTemplate!!.getForEntity("$baseUrl/todo/1", Todo::class.java)
-            assertEquals(HttpStatus.OK, response.statusCode)
-            assertEquals(1, response.body!!.id)
-            assertEquals("test body id 1", response.body!!.body)
-        }
+
+        val dummyResponse: String = this::class.java.classLoader.getResource("todo/todoResponse.json")!!.readText()
+
+        mockRestServiceServer!!.expect(MockRestRequestMatchers.requestTo("https://fakeuri/posts/1"))
+            .andRespond(MockRestResponseCreators.withSuccess(dummyResponse, MediaType.APPLICATION_JSON))
+
+        val response = testRestTemplate!!.getForEntity("$baseUrl/todo/1", Todo::class.java)
+
+        assertEquals(HttpStatus.OK, response.statusCode)
+        assertEquals(1, response.body!!.id)
+        assertEquals("test body id 1", response.body!!.body)
+    }
 }

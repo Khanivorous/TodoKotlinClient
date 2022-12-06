@@ -39,13 +39,13 @@ class TodoKotlinClientImplMockServerTest {
     @Throws(IOException::class)
     @Test
     fun todoById() {
-        val resource: Resource = ClassPathResource("todo/todoResponse.json")
-        val inputStream = resource.inputStream
-        val dataAsBytes = FileCopyUtils.copyToByteArray(inputStream)
-        val dummyResponse = String(dataAsBytes, StandardCharsets.UTF_8)
+        val dummyResponse: String = this::class.java.classLoader.getResource("todo/todoResponse.json")!!.readText()
+
         mockRestServiceServer!!.expect(MockRestRequestMatchers.requestTo("/posts/1"))
             .andRespond(MockRestResponseCreators.withSuccess(dummyResponse, MediaType.APPLICATION_JSON))
+
         val response = serviceUnderTest!!.getTodoById(1)
+
         assertEquals(1, response!!.id)
         assertEquals("test body id 1", response.body)
     }
