@@ -2,20 +2,16 @@ package com.khanivorous.todokotlin
 
 import com.khanivorous.todokotlin.service.TodoClientImpl
 import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
-import org.springframework.core.io.ClassPathResource
-import org.springframework.core.io.Resource
 import org.springframework.http.MediaType
 import org.springframework.test.web.client.MockRestServiceServer
 import org.springframework.test.web.client.match.MockRestRequestMatchers
 import org.springframework.test.web.client.response.MockRestResponseCreators
-import org.springframework.util.FileCopyUtils
 import org.springframework.web.client.RestTemplate
 import java.io.IOException
-import java.nio.charset.StandardCharsets
-import org.junit.jupiter.api.Assertions.assertEquals
 
 
 @Tag("Application")
